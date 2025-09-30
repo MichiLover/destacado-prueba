@@ -1,0 +1,140 @@
+/* @layer base, utilities, demo;
+@import url(https://fonts.bunny.net/css?family=kodchasan:200,400,600) layer(demo); */
+
+
+.index-section {
+ 
+  color: #f9f9f9;
+}
+
+.index-section h1 {
+  color: #f5c518;
+  font-family: 'Oswald', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.index-section p {
+  font-size: 1rem;
+}
+
+
+
+@layer demo {
+  /* Encapsulamos todo en .destacado */
+  .destacado {
+    display: grid;
+    width: min(calc(100% - 2rem), 40rem);
+    color: black;
+    margin: 2rem auto; /* centrado solo para la card */
+  }
+
+  .destacado article {
+    color:#f9fafa;
+    --_border-radius: 10px;
+    --_bg-dot-offset: 20px;
+    --_bg-dot-color: #f5c518;   /*Aca es el color del contorno de la card*/
+    /* --_bg-dot-color: rgba(163, 230, 53, .5); */
+
+    position: relative;
+    isolation: isolate;
+    background-color: #0d1b2a;
+    border-radius: var(--_border-radius);
+    font-family: "Roboto", sans-serif;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+  }
+
+  .destacado article::before,
+  .destacado article::after {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  .destacado article::before {
+    inset: calc(var(--_bg-dot-offset) * -1);
+    background-image: radial-gradient(var(--_bg-dot-color) 1px, transparent 0px);
+    background-repeat: repeat;
+    background-size: 5px 5px;
+    background-position: center;
+    border-radius: calc(var(--_border-radius) + var(--_bg-dot-offset));
+  }
+
+  .destacado article::after {
+    background-color: #0d1b2a;
+    color:#f9fafa;
+    inset: 0;
+  }
+
+  .destacado article > header {
+    padding: .5rem 1rem;
+    background-color: #0d1b2a;
+    font-family: 'Oswald','sans-serif';
+    color: #f5c518;
+    border-radius: var(--_border-radius) var(--_border-radius) 0 0;
+    border-bottom: 2px solid #f5c518; /* 👈 línea divisoria */
+  }
+
+  .destacado article > header > h2 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  .destacado article > div {
+    position: relative;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (width > 600px) {
+    .destacado article > div {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+
+  .destacado article img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .destacado article .poem {
+    width: 100%;
+    height: 200px;
+    overflow-y: auto;
+  }
+
+  .destacado article p {
+    margin: 0 0 1rem 0;
+    font-size: .9rem;
+    line-height: 1.5;
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  :root {
+    color-scheme: light dark;
+    --bg-dark: rgb(24, 24, 27);
+    --bg-light: rgb(229, 229, 229);
+    --txt-light: rgb(10, 10, 10);
+    --txt-dark: rgb(245, 245, 245);
+  }
+
+  body {
+    min-height: 100svh;
+    margin: 0;
+    padding: 0; /* quitamos padding centrado para no romper navbar/footer */
+    font-size: 1rem;
+    font-family: system-ui;
+    line-height: 1.5;
+  }
+}
